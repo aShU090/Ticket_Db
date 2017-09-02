@@ -1,5 +1,6 @@
 ﻿using Apttus.Assignment.MovieTicket;
 using Apttus.MovieTicket.DAL;
+using Apttus.SMSService;
 using System;
 using System.Collections.Generic;
 
@@ -7,12 +8,18 @@ namespace Apttus.MovieTicket.TicketDetail
 {
     public class TicketInformation
     {
-        private static void Main(string[] args)
+        public static void Main(string[] args)
         {
+            var fetch = "";
+            int Price_person = 0;
+            int cost = 0;
+            // PerPersonCost cost = new PerPersonCost();
+            TicketBook book = new TicketBook();
             Ticket ticket = new Ticket();
             List<Persons> value = new List<Persons>();
             IDataAccessor data = new DataAccessor();
-
+            var count = ticket.IsJointFamily(data);
+            Console.WriteLine(string.Format("IsJointFamily:{0}", count));
             int ticketprice;
             string y = "y";
 
@@ -39,7 +46,7 @@ namespace Apttus.MovieTicket.TicketDetail
             for (int i = 0; i < member; i++)
             {
                 Console.WriteLine("Enter the member name");
-                var fetch = Console.ReadLine();
+                fetch = Console.ReadLine();
                 value.Add(person[fetch]);
             }
 
@@ -55,6 +62,20 @@ namespace Apttus.MovieTicket.TicketDetail
             }
             Console.WriteLine("-------------------------------------");
             Console.WriteLine("Total cost of ticket is: " + ticketprice);
+            Console.WriteLine("Do you want to book the ticket y or n?");
+            string ans = Console.ReadLine();
+            if (ans == "y")
+            {
+                foreach (var temp in value)
+                {
+                    book = new TicketBook() { list = value, Price = ticketprice };
+                }
+
+                TicketBooking ti_book = new TicketBooking();
+                MessageService m = new MessageService();
+                ti_book.bookedTicket += m.OnbookedTicket;
+                ti_book.BookingTicket(book);
+            }
             Console.ReadLine();
         }
     }
