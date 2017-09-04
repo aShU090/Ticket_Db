@@ -71,10 +71,9 @@ namespace Apttus.MovieTicket.TicketDetail
                     book = new TicketBook() { list = value, Price = ticketprice };
                 }
 
-                TicketBooking ti_book = new TicketBooking();
                 MessageService m = new MessageService();
-                ti_book.bookedTicket += m.OnbookedTicket;
-                ti_book.BookingTicket(book);
+                ticket.bookedTicket += m.OnbookedTicket;
+                ticket.BookingTicket(book);
             }
             Console.ReadLine();
         }

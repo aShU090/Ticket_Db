@@ -47,10 +47,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Apttus.Assignment.MovieTicket, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\DAL\bin\Debug\Apttus.Assignment.MovieTicket.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -80,9 +76,33 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="DBPerson.mdf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="DBPerson_log.ldf">
+      <DependentUpon>DBPerson.mdf</DependentUpon>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Connected Services\" />
+  </ItemGroup>
+  <ItemGroup>
     <ProjectReference Include="..\DAL\DAL.csproj">
-      <Project>{7A99BC7C-1A68-4A83-BDA3-B6A4116EFB62}</Project>
+      <Project>{7a99bc7c-1a68-4a83-bda3-b6a4116efb62}</Project>
       <Name>DAL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MovieTicket\MovieTicket.csproj">
+      <Project>{4eb117c9-5762-4f52-862c-7e04b7c4210d}</Project>
+      <Name>MovieTicket</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SMSService\SMSService.csproj">
+      <Project>{c7ddd4be-48d5-417b-8faa-70841a137a83}</Project>
+      <Name>SMSService</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\TicketingModel\TicketingModel.csproj">
+      <Project>{367f856f-9673-4453-95aa-11a7fa866449}</Project>
+      <Name>TicketingModel</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
