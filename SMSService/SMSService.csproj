@@ -49,16 +49,11 @@
     <Compile Include="MessageService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TicketBook.cs" />
-    <Compile Include="TicketBooking.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\MovieTicket\MovieTicket.csproj">
-      <Project>{4EB117C9-5762-4F52-862C-7E04B7C4210D}</Project>
-      <Name>MovieTicket</Name>
-    </ProjectReference>
     <ProjectReference Include="..\TicketingModel\TicketingModel.csproj">
       <Project>{367F856F-9673-4453-95AA-11A7FA866449}</Project>
       <Name>TicketingModel</Name>

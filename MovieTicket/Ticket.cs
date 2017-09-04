@@ -1,4 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using Apttus.MovieTicket.DAL;
+using Apttus.SMSService;
+using System;
+using System.Collections.Generic;
 
 namespace Apttus.Assignment.MovieTicket
 {
@@ -6,12 +9,27 @@ namespace Apttus.Assignment.MovieTicket
     {
         public int Discount;
 
-        public int GetCostOfTicket()
+        public delegate void BookingTicketHandler(object source, BookingTicketArgs args);
+
+        public event BookingTicketHandler bookedTicket;
+
+        public void BookingTicket(TicketBook ti)
+        {
+            Console.WriteLine("Booking ticket......");
+            OnbookedTicket(ti);
+        }
+
+        protected virtual void OnbookedTicket(TicketBook ti)
+        {
+            bookedTicket?.Invoke(this, new BookingTicketArgs { ticketBook = ti });
+        }
+
+        private int GetCostOfTicket()
         {
             return 1000;
         }
 
-        public int GetDiscount()
+        private int GetDiscount()
         {
             int TicketCost = GetCostOfTicket();
             Discount = ((TicketCost * 30) / 100);
@@ -46,6 +64,16 @@ namespace Apttus.Assignment.MovieTicket
                 TotalCost += cos[j];
             }
             return TotalCost;
+        }
+
+        public bool IsJointFamily(IDataAccessor data)
+        {
+            var list = data.GetMembersDetails();
+            if (list.Count > 5)
+            {
+                return true;
+            }
+            return false;
         }
     }
 }
